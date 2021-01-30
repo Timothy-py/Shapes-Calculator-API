@@ -1,0 +1,33 @@
+{
+  "name": "shapes-calculator-api",
+  "version": "1.0.0",
+  "description": "Shapes Calculator API for calculating the area of shapes - Square, Rectangle, Triangle Circle",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timothy-py/Shapes-Calculator-API.git"
+  },
+  "keywords": [
+    "sequelize-cli",
+    "api"
+  ],
+  "author": "Timothy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Timothy-py/Shapes-Calculator-API/issues"
+  },
+  "homepage": "https://github.com/Timothy-py/Shapes-Calculator-API#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "sequelize": "^6.5.0"
+  },
+  "devDependencies": {
+    "sequelize-auto-migrations": "^1.0.3",
+    "sequelize-cli": "^6.2.0"
+  }
+}

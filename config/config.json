@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "timothy",
+    "password": "plati442",
+    "database": "shape_calculator",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "timothy",
+    "password": "plati442",
+    "database": "shape_calculator",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "timothy",
+    "password": "plati442",
+    "database": "shape_calculator",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "use_env_variable": "DATABASE_URL"
+  }
+}
