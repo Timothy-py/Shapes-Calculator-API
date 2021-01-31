@@ -10,7 +10,7 @@ const port = process.env.PORT || 7000;
 app.use(express.json());
 
 // require app routes
-const todoapi = require('./routes/todo')
+const shapes_calculator = require('./routes/shapescalculator')
 
 // setup database: connecting to mongodb atlas
 const uri = process.env.ATLAS_URI;
@@ -22,7 +22,7 @@ connection.once('open', ()=>{
 })
 
 // specify root url path for app
-app.use('/todo/api', todoapi)
+app.use('/api/shapescalculator', shapes_calculator)
 
 
 // configure app PORT
