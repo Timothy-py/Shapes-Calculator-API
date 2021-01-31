@@ -6,7 +6,11 @@ const shapescalculatorController = require('../controllers/shapescalculatorContr
 
 
 // AUTHENTICATON ROUTES
+// signup/register route
 router.post("/signup", authController.signup);
+
+// login route
+router.post("/login", authController.signin);
 
 
 // SHAPES CALCULATOR ROUTES

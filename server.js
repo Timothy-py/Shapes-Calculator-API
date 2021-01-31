@@ -10,16 +10,7 @@ const port = process.env.PORT || 7000;
 app.use(express.json());
 
 // require app routes
-const shapes_calculator = require('./routes/shapescalculator')
-
-// setup database: connecting to mongodb atlas
-const uri = process.env.ATLAS_URI;
-
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
-const connection = mongoose.connection;
-connection.once('open', ()=>{
-    console.log('MongoDB Database connection established successfully :)');
-})
+const shapes_calculator = require('./routes/api')
 
 // specify root url path for app
 app.use('/api/shapescalculator', shapes_calculator)
