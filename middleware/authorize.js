@@ -16,10 +16,11 @@ module.exports = async(req, res, next) => {
         }
 
         // now verify the token provided
-        const payload = jwt.payload(jwtToken, process.env.jwtSecret);
+        const payload = jwt.verify(jwtToken, process.env.jwtSecret);
 
         // pass the user object to req.
         req.user = payload.user;
+        next();
     }catch(error){
         console.error(error.message);
         return res.status(403).json({
