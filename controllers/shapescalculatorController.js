@@ -92,7 +92,7 @@ function square(req, res, dimensions){
         req.create = "DoNotCreate"
         res.status(422).json({
             message: "side is not provided",
-            status: true
+            status: false
         })
     }else{
         let area = (dimensions.side)**2
@@ -104,7 +104,17 @@ function square(req, res, dimensions){
 
 // rectangle calculator function
 function rectangle(req, res, dimensions){
-    
+    if((dimensions.length)===undefined || (dimensions.breadth)===undefined){
+        req.create = "DoNotCreate"
+        res.status(422).json({
+            message: "length or breadth is not provided",
+            status: false
+        })   
+    }else{
+        let area = (dimensions.length) * (dimensions.breadth)
+        req.area = area
+        req.create = "Create"
+    }
 }
 
 // triangle calculator function
