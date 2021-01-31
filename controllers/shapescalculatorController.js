@@ -36,7 +36,7 @@ exports.calculator = [
                 rectangle(req, res, dimensions);
                 break;
             case "triangle":
-                rectangle(req, res, dimensions);
+                triangle(req, res, dimensions);
             case "circle":
                 circle(req, dimensions);
                 break;
@@ -45,7 +45,7 @@ exports.calculator = [
         if(req.create == "Create"){
             // log shape calculated info into the DB
             await models.Shape.create({
-                shape: shape,
+                name: shape,
                 dimensions: dimensions,
                 area: req.area,
                 UserId: req.user
@@ -55,7 +55,7 @@ exports.calculator = [
                     message: "Area successfully calculated",
                     status: true,
                     data: {
-                        name: newshape.name,
+                        shape: newshape.name,
                         dimension: newshape.dimensions,
                         area: newshape.area
                     }
@@ -91,7 +91,7 @@ function square(req, res, dimensions){
     if((dimensions.side) === undefined){
         req.create = "DoNotCreate"
         res.status(422).json({
-            message: "side is not provided",
+            message: "Provide shape dimension: [side]",
             status: false
         })
     }else{
@@ -107,7 +107,7 @@ function rectangle(req, res, dimensions){
     if((dimensions.length)===undefined || (dimensions.breadth)===undefined){
         req.create = "DoNotCreate"
         res.status(422).json({
-            message: "length or breadth is not provided",
+            message: "Provide shape dimensions: [length, breadth]",
             status: false
         })   
     }else{
@@ -119,7 +119,18 @@ function rectangle(req, res, dimensions){
 
 // triangle calculator function
 function triangle(req, res, dimensions){
-    
+    if((dimensions.length_a)===undefined || (dimensions.length_b)===undefined || (dimensions.length_c)===undefined){
+        req.create = "DoNotCreate"
+        res.status(422).json({
+            message: "Provide shape dimensions: [length_a, length_b, length_c]",
+            status: false
+        })   
+    }else{
+        let s = (dimensions.length_a + dimensions.length_b + dimensions.length_c)/2
+        let area = Math.sqrt(s*(s-dimensions.length_a)*(s-dimensions.length_b)*(s-dimensions.length_c))
+        req.area = parseFloat(area.toFixed(2))
+        req.create = "Create"
+    }
 }
 
 // rectangle calculator function
