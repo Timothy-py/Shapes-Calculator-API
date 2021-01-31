@@ -38,7 +38,7 @@ exports.calculator = [
             case "triangle":
                 triangle(req, res, dimensions);
             case "circle":
-                circle(req, dimensions);
+                circle(req, res, dimensions);
                 break;
         }
 
@@ -134,6 +134,16 @@ function triangle(req, res, dimensions){
 }
 
 // rectangle calculator function
-function circle(req, shape, dimensions){
-    
+function circle(req, res, dimensions){
+    if((dimensions.radius)===undefined){
+        req.create = "DoNotCreate"
+        res.status(422).json({
+            message: "Provide shape dimension: [radius]",
+            status: false
+        })   
+    }else{
+        let area = Math.PI * (dimensions.radius**2)
+        req.area = parseFloat(area.toFixed(2))
+        req.create = "Create"
+    }   
 }
