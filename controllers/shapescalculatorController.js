@@ -2,11 +2,27 @@ const models = require("../models");
 const {body, validationResult} = require('express-validator');
 
 // get all calculations belonging to the current logged in user
-exports.myCalculations = (req, res) => {
-    res.status(200).json({
-        message: "Get User Info successfully",
-        user: req.user
+exports.myCalculations = async (req, res) => {
+    
+    await models.Shape.findAndCountAll({
+        where: {UserId: req.user}
     })
+    .then(shapes => {
+        res.status(200).json({
+            message: "All your calculations retrieved successfully",
+            status: true,
+            data: shapes.rows,
+            count: shapes.count
+        })
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(400).json({
+            message: 'Unable to retrieve your calculations',
+            status: false
+        })
+    })
+
 }
 
 // calculator
