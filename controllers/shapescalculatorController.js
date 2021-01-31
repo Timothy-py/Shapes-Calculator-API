@@ -28,13 +28,12 @@ exports.calculator = [
         const dimensions =req.body.dimensions
 
         // execute different function based on the shape passed
-        var area = ''
         switch(shape){
             case "square":
-                square(req, dimensions);
+                square(req, res, dimensions);
                 break;
             case "rectangle":
-                rectangle(req, dimensions);
+                rectangle(req, res, dimensions);
                 break;
             case "triangle":
                 rectangle(req, dimensions);
@@ -43,30 +42,33 @@ exports.calculator = [
                 break;
         }
 
-        // log shape calculated info into the DB
-        await models.Shape.create({
-            name: shape,
-            dimensions: dimensions,
-            area: req.area,
-            UserId: req.user
-        })
-        .then((newshape) => {
-            res.status(200).json({
-                message: "Area successfully calculated",
-                status: true,
-                data: {
-                    name: newshape.name,
-                    dimension: newshape.dimensions,
-                    area: newshape.area
-                }
+        if(req.create == "Create"){
+            // log shape calculated info into the DB
+            await models.Shape.create({
+                name: shape,
+                dimensions: dimensions,
+                area: req.area,
+                UserId: req.user
             })
-        })
-        .catch((error) => {
-            res.status(400).json({
-                message: "Unable to perform calculaton",
-                status: false
+            .then((newshape) => {
+                res.status(200).json({
+                    message: "Area successfully calculated",
+                    status: true,
+                    data: {
+                        name: newshape.name,
+                        dimension: newshape.dimensions,
+                        area: newshape.area
+                    }
+                })
             })
-        })
+            .catch((error) => {
+                console.log(error)
+                res.status(400).json({
+                    message: "Unable to perform calculaton",
+                    status: false
+                })
+            })
+        }
     }
 
 ]
@@ -85,14 +87,23 @@ function validator(){
 }
 
 // square calculator function
-function square(req, dimensions){
-    let area = (dimensions.side)**2
-    req.area = area
-    return area;
+function square(req, res, dimensions){
+    if((dimensions.side) === undefined){
+        req.create = "DoNotCreate"
+        res.status(422).json({
+            message: "side is not provided",
+            status: true
+        })
+    }else{
+        let area = (dimensions.side)**2
+        req.area = area
+        req.create = "Create"
+    }
+    
 }
 
 // rectangle calculator function
-function rectangle(req, shape, dimensions){
+function rectangle(req, res, dimensions){
     
 }
 
