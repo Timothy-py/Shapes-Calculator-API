@@ -36,7 +36,7 @@ exports.calculator = [
                 rectangle(req, res, dimensions);
                 break;
             case "triangle":
-                rectangle(req, dimensions);
+                rectangle(req, res, dimensions);
             case "circle":
                 circle(req, dimensions);
                 break;
@@ -45,7 +45,7 @@ exports.calculator = [
         if(req.create == "Create"){
             // log shape calculated info into the DB
             await models.Shape.create({
-                name: shape,
+                shape: shape,
                 dimensions: dimensions,
                 area: req.area,
                 UserId: req.user
@@ -96,7 +96,7 @@ function square(req, res, dimensions){
         })
     }else{
         let area = (dimensions.side)**2
-        req.area = area
+        req.area = parseFloat(area.toFixed(2))
         req.create = "Create"
     }
     
@@ -112,13 +112,13 @@ function rectangle(req, res, dimensions){
         })   
     }else{
         let area = (dimensions.length) * (dimensions.breadth)
-        req.area = area
+        req.area = parseFloat(area.toFixed(2))
         req.create = "Create"
     }
 }
 
 // triangle calculator function
-function triangle(req, shape, dimensions){
+function triangle(req, res, dimensions){
     
 }
 
