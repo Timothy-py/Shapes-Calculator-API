@@ -76,6 +76,7 @@ exports.calculator = [
                 break;
             case "triangle":
                 triangle(req, res, dimensions);
+                break;
             case "circle":
                 circle(req, res, dimensions);
                 break;
