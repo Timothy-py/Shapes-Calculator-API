@@ -1,29 +1,52 @@
 const models = require("../models");
 const {body, validationResult} = require('express-validator');
 
+
+// a function to set the appropriate limit and offset from 'page' and 'size' retrieved as query parameters
+const getPagination = (page, size) =>{
+    const limit = size ? +size : 3;     // set default data limit to 3 if not provided
+    const offset = page ? page * limit : 0;  //set default offset to 0 if not provided
+
+    return {limit, offset};
+}
+
+// a function to map paginated api response to a desired structure
+const getPagingData = (data, page, limit) => {
+    const {count: totalItems, rows: calculations} = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {totalItems, calculations, totalPages, currentPage};
+}
+
+
 // get all calculations belonging to the current logged in user
 exports.myCalculations = async (req, res) => {
-    
-    await models.Shape.findAndCountAll({
-        where: {UserId: req.user}
-    })
-    .then(shapes => {
-        res.status(200).json({
-            message: "All your calculations retrieved successfully",
-            status: true,
-            data: shapes.rows,
-            count: shapes.count
-        })
-    })
-    .catch(error => {
-        console.log(error)
-        res.status(400).json({
-            message: 'Unable to retrieve your calculations',
-            status: false
-        })
-    })
 
+    const {page, size} = req.query;
+
+    const {limit, offset} = getPagination(page, size);
+
+    await models.Shape.findAndCountAll({
+        where:{UserId: req.user},
+        limit: limit,
+        offset: offset
+    })
+        .then(calculations => {
+            res.status(200).json({
+                message: "All your calculations retrieved successfully",
+                status: true,
+                data: getPagingData(calculations, page, limit)
+            })
+        })
+        .catch(error => {
+            res.status(500).send({
+                message: error.message || "Some error occured while retrieving your calculations."
+            });
+        });
 }
+
+
 
 // calculator
 exports.calculator = [
@@ -163,3 +186,4 @@ function circle(req, res, dimensions){
         req.create = "Create"
     }   
 }
+
