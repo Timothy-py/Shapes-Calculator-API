@@ -102,8 +102,8 @@ exports.calculator = [
             })
             .catch((error) => {
                 console.log(error)
-                res.status(400).json({
-                    message: "Unable to perform calculaton",
+                res.status(500).json({
+                    message: error.message || "Unable to perform calculaton",
                     status: false
                 })
             })

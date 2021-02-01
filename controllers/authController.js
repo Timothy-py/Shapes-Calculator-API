@@ -43,8 +43,8 @@ exports.signup = async(req, res) => {
                 })
             })
             .catch((error) => {
-                res.status(400).json({
-                    message: `There was an error creating the User: ${error}`,
+                res.status(500).json({
+                    message: `There was an error creating the User: ${error.message}`,
                     status: false
                 })
             })
