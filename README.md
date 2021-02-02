@@ -53,6 +53,11 @@ Open your Postman or any other api testing tool and check out the following rout
 The API was documented using Postman  
 URL - https://www.getpostman.com/collections/420c214a0845a531dbaa
 
+## API AUTOMATED TESTING Documentation
+
+The Automated Testing for the API was done using Postman  
+URL - https://www.postman.com/collections/fc283b1715981bdf7bc3
+
 ## Heroku URL
 
 The API was deployed on Heroku  
