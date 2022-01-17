@@ -4,7 +4,8 @@
   "description": "Shapes Calculator API for calculating the area of shapes - Square, Rectangle, Triangle Circle",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,9 @@
     "url": "https://github.com/Timothy-py/Shapes-Calculator-API/issues"
   },
   "homepage": "https://github.com/Timothy-py/Shapes-Calculator-API#readme",
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
