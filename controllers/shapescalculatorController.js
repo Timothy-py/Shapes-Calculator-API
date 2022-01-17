@@ -53,7 +53,7 @@ exports.calculator = [
     // execute validator function
     validator(),
 
-    async(req, res) => {
+    (req, res) => {
         // check for validations
         const errors = validationResult(req);
         if(!errors.isEmpty()){
@@ -84,7 +84,7 @@ exports.calculator = [
 
         if(req.create == "Create"){
             // log shape calculated info into the DB
-            await models.Shape.create({
+            models.Shape.create({
                 name: shape,
                 dimensions: dimensions,
                 area: req.area,
@@ -129,63 +129,106 @@ function validator(){
 
 // square calculator function
 function square(req, res, dimensions){
-    if((dimensions.side) === undefined){
+    const side = dimensions.side
+    if(side === undefined){
         req.create = "DoNotCreate"
         res.status(422).json({
             message: "Provide shape dimension: [side]",
             status: false
         })
-    }else{
-        let area = (dimensions.side)**2
-        req.area = parseFloat(area.toFixed(2))
-        req.create = "Create"
     }
+
+    if(typeof(side) != 'number'){
+        req.create = "DoNotCreate"
+        res.status(422).json({
+            message: "Not a Number: Invalid value type for side",
+            status: false
+    })}
+    
+
+    let area = (side)**2
+    req.area = parseFloat(area.toFixed(2))
+    req.create = "Create"
     
 }
 
 // rectangle calculator function
 function rectangle(req, res, dimensions){
-    if((dimensions.length)===undefined || (dimensions.breadth)===undefined){
+    const length = dimensions.length
+    const breadth = dimensions.breadth
+
+    if(length===undefined || breadth===undefined){
         req.create = "DoNotCreate"
         res.status(422).json({
             message: "Provide shape dimensions: [length, breadth]",
             status: false
-        })   
-    }else{
-        let area = (dimensions.length) * (dimensions.breadth)
-        req.area = parseFloat(area.toFixed(2))
-        req.create = "Create"
-    }
+        })}
+    
+    if(typeof(length) != 'number' || typeof(breadth) != 'number'){
+        req.create = "DoNotCreate"
+        res.status(422).json({
+            message: "Not a Number: Invalid value type for dimensions",
+            status: false
+        })}
+
+    let area = (length) * (breadth)
+    req.area = parseFloat(area.toFixed(2))
+    req.create = "Create"
 }
 
 // triangle calculator function
 function triangle(req, res, dimensions){
-    if((dimensions.length_a)===undefined || (dimensions.length_b)===undefined || (dimensions.length_c)===undefined){
+    const length_a = dimensions.length_a
+    const length_b = dimensions.length_b
+    const length_c = dimensions.length_c
+
+    if(length_a===undefined || length_b===undefined || length_c===undefined){
         req.create = "DoNotCreate"
         res.status(422).json({
             message: "Provide shape dimensions: [length_a, length_b, length_c]",
             status: false
-        })   
-    }else{
-        let s = (dimensions.length_a + dimensions.length_b + dimensions.length_c)/2
-        let area = Math.sqrt(s*(s-dimensions.length_a)*(s-dimensions.length_b)*(s-dimensions.length_c))
-        req.area = parseFloat(area.toFixed(2))
-        req.create = "Create"
-    }
+    })}
+
+    if(
+        typeof(length_a) != 'number' ||
+        typeof(length_b) != 'number' ||
+        typeof(length_c) != 'number'
+    ){
+        req.create = "DoNotCreate"
+        res.status(422).json({
+            message: "Not a Number: Invalid value type for dimensions",
+            status: false
+    })}
+
+    
+
+    let s = (length_a + length_b + length_c)/2
+    let area = Math.sqrt(s*(s-length_a)*(s-length_b)*(s-length_c))
+    req.area = parseFloat(area.toFixed(2))
+    req.create = "Create"
 }
 
 // rectangle calculator function
 function circle(req, res, dimensions){
-    if((dimensions.radius)===undefined){
+    const radius = dimensions.radius
+
+    if(radius===undefined){
         req.create = "DoNotCreate"
         res.status(422).json({
             message: "Provide shape dimension: [radius]",
             status: false
         })   
-    }else{
-        let area = Math.PI * (dimensions.radius**2)
-        req.area = parseFloat(area.toFixed(2))
-        req.create = "Create"
-    }   
+    }
+
+    if(typeof(radius) != 'number'){
+        req.create = "DoNotCreate"
+        res.status(422).json({
+            message: "Not a Number: Invalid value type for radius",
+            status: false
+    })}
+
+    let area = Math.PI * (dimensions.radius**2)
+    req.area = parseFloat(area.toFixed(2))
+    req.create = "Create"
 }
 
