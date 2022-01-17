@@ -42,11 +42,11 @@ If you don't have postgres installed already on your machine, search online on h
 
 Open your Postman or any other api testing tool and check out the following routes
 
-- Signup - POST https://localhost:7000/api/shapescalculator/signup
+- Signup - POST http://localhost:7000/api/shapescalculator/signup
 
-* Login - POST https://localhost:7000/api/shapescalculator/login
-* Calculator - POST https://localhost:7000/api/shapescalculator/calculator
-* View My Calculations - GET https://localhost:7000/api/shapescalculator/mycalculations
+* Login - POST http://localhost:7000/api/shapescalculator/login
+* Calculator - POST http://localhost:7000/api/shapescalculator/calculator
+* View My Calculations - GET http://localhost:7000/api/shapescalculator/mycalculations
 
 ## API Documentation
 

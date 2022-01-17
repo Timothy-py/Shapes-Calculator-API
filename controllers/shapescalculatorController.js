@@ -120,6 +120,7 @@ function validator(){
         .notEmpty().withMessage("shape cannot be empty")
         .isIn(["square", "rectangle", "triangle", "circle"]).withMessage("Invalid shape! Accepted shapes [square, rectangle, triangle, circle]"),
 
+
         body('dimensions')
         // .isJSON().withMessage("dimension must be a valid JSON obj")
         .notEmpty().withMessage("dimension cannot be empty")
