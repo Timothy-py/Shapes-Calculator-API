@@ -43,7 +43,7 @@ exports.signup = async(req, res) => {
                 })
             })
             .catch((error) => {
-                res.status(500).json({
+                res.status(error.status).json({
                     message: `There was an error creating the User: ${error.message}`,
                     status: false
                 })
@@ -51,7 +51,7 @@ exports.signup = async(req, res) => {
 
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Server Error");
+        res.status(error.status).send(error.message || 'Server error');
     }
 };
 
@@ -97,6 +97,6 @@ exports.signin = async(req, res) => {
 
     }catch(error){
         console.error(error.message);
-        res.status(500).send("Server Error");
+        res.status(error.status).send(error.message || "Server Error");
     }
 };
