@@ -19,6 +19,11 @@ const getPagingData = (data, page, limit) => {
     return {totalItems, calculations, totalPages, currentPage};
 }
 
+// INDEX PAGE
+exports.getIndex = (req, res) => {
+    res.send("Shapes Calculator API")
+}
+
 
 // get all calculations belonging to the current logged in user
 exports.myCalculations = async (req, res) => {

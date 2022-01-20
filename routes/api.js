@@ -8,6 +8,8 @@ const shapescalculatorController = require('../controllers/shapescalculatorContr
 const authorizer = require('../middleware/authorize');
 
 
+
+
 // AUTHENTICATON ROUTES
 // signup/register route
 router.post("/signup", authController.signup);
@@ -16,6 +18,7 @@ router.post("/login", authController.signin);
 
 
 // SHAPES CALCULATOR ROUTES
+router.get("/", shapescalculatorController.getIndex);
 router.get("/mycalculations", authorizer, shapescalculatorController.myCalculations);
 router.post("/calculator", authorizer, shapescalculatorController.calculator);
 
