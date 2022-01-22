@@ -51,7 +51,7 @@ Open your Postman or any other api testing tool and check out the following rout
 ## API Documentation
 
 The API was documented using Postman  
-URL - https://www.getpostman.com/collections/420c214a0845a531dbaa
+URL - https://www.getpostman.com/collections/6b831dc7b936ba17cfa5
 
 ## API AUTOMATED TESTING Documentation
 
