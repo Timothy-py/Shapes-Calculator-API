@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - 9000:7000
+    depends_on:
+      - db
+  db:
+    image: postgres:9.4
+    environment:
+      - POSTGRES_USER=timothy
+      - POSTGRES_PASSWORD=plati442
+    ports:
+      - 5432:5432
+    volumes:
+      - shapes_calculatordb:/var/lib/postgresql/data
+volumes:
+  shapes_calculatordb:
